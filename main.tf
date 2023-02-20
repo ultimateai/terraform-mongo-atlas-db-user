@@ -6,8 +6,11 @@ resource "mongodbatlas_database_user" "test" {
 
   dynamic "roles" {
     for_each = var.databases_names
-    role_name     = "readWrite"
-    database_name = each.value
+    content {
+      role_name     = "readWrite"
+      database_name = each.value
+    }
+    
   }
 
 }
