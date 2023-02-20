@@ -1,11 +1,9 @@
-variable "example" {
-  description = "Example variable"
+variable "service_name" {
+  description = "Name of the service this user is for"
   type        = string
-  default     = "hello world"
 }
 
-variable "ultimate_answer" {
-  description = "Ultimate Answer to Life, The Universe, and Everything"
-  type        = number
-  default     = 42
+variable "databases_names" {
+  description = "List of databases this user needs access to"
+  type        = list(string)
 }
