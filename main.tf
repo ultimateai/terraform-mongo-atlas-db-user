@@ -15,6 +15,17 @@ resource "mongodbatlas_database_user" "test" {
 
 }
 
+resource "vault_generic_secret" "test" {
+  path = "secret/foo"
+
+  data_json = <<EOT
+{
+  "foo":   "bar",
+  "pizza": "cheese"
+}
+EOT
+}
+
 resource "random_password" "password" {
   length = 16
   special = false
