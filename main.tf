@@ -1,6 +1,7 @@
 resource "mongodbatlas_database_user" "test" {
-  username           = var.service_name
-  password           = "test"
+  for_each = var.environments
+  username           = "${var.service_name}_${each.value}_test"
+  password           = random_password.password[each.key].result
   project_id         = "61a669f144e0644f25cf662f"
   auth_database_name = "admin"
 
@@ -16,17 +17,19 @@ resource "mongodbatlas_database_user" "test" {
 }
 
 resource "vault_generic_secret" "test" {
-  path = "secret/foo"
+  for_each = var.environments
+
+  path = "secret/${var.chapter}/${each.value}/${var.service_name}"
 
   data_json = <<EOT
 {
-  "foo":   "bar2Newyeah",
-  "pizza": "cheese"
+  "MONGO_PASSWORD": ${random_password.password[each.key].result},
 }
 EOT
 }
 
 resource "random_password" "password" {
+  for_each = var.environments
   length = 16
   special = false
 }
