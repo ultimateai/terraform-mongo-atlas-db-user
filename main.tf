@@ -20,7 +20,7 @@ resource "vault_generic_secret" "test" {
 
   data_json = <<EOT
 {
-  "foo":   "bar",
+  "foo":   "bar2Newyeah",
   "pizza": "cheese"
 }
 EOT
