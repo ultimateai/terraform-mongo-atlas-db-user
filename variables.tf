@@ -16,6 +16,6 @@ variable "chapter" {
 
 variable "environments" {
   description = "List of environments in which to create the secret"
-  type        = set(list(string))
+  type        = set(string)
 }
 
