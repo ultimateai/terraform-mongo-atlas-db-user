@@ -23,7 +23,7 @@ resource "vault_generic_secret" "test" {
 
   data_json = <<EOT
 {
-  "MONGO_PASSWORD": ${random_password.password[each.key].result},
+  "MONGO_PASSWORD": ${random_password.password[each.value].result},
 }
 EOT
 }
