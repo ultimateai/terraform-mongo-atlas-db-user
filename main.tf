@@ -1,7 +1,7 @@
 resource "mongodbatlas_database_user" "mongo_user" {
   username           = var.user_name
   password           = random_password.mongo_password.result
-  project_id         = var.project_id
+  project_id         = var.mongo_project_id
   auth_database_name = "admin"
 
   dynamic "roles" {
