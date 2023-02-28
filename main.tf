@@ -19,7 +19,7 @@ resource "vault_generic_secret" "vault_secret" {
   path = "${var.vault_path}-mongo-credentials"
   data_json = <<EOT
 {
-  "MONGO_USER": "${var.user_name}"
+  "MONGO_USER": "${var.user_name}",
   "MONGO_PASSWORD": "${random_password.mongo_password.result}"
 }
 EOT
