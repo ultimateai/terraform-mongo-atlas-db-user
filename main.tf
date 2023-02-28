@@ -20,6 +20,7 @@ resource "mongodbatlas_database_user" "mongo_user" {
 
 resource "vault_kv_secret_v2" "secret" {
   mount = var.vault_path
+  name = "test_rob"
   data_json = jsonencode(
   {
     zip = "zap",
