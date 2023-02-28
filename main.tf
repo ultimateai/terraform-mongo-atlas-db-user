@@ -18,8 +18,8 @@ resource "mongodbatlas_database_user" "mongo_user" {
 #   path = var.vault_path
 # }
 
-resource "vault_kv_secret" "secret" {
-  path = var.vault_path
+resource "vault_kv_secret_v2" "secret" {
+  mount = var.vault_path
   data_json = jsonencode(
   {
     zip = "zap",
