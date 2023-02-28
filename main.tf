@@ -10,13 +10,13 @@ resource "mongodbatlas_database_user" "mongo_user" {
       role_name     = "readWrite"
       database_name = roles.value
     }
-    
+
   }
 }
 
 
 resource "vault_generic_secret" "vault_secret" {
-  path = "${var.vault_path}-mongo-credentials"
+  path      = "${var.vault_path}-mongo-credentials"
   data_json = <<EOT
 {
   "MONGO_USER": "${var.user_name}",
@@ -26,6 +26,6 @@ EOT
 }
 
 resource "random_password" "mongo_password" {
-  length = 16
+  length  = 16
   special = false
 }
