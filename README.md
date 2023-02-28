@@ -23,8 +23,9 @@ terraform {
   }
 }
 
+##There are several ways for auth vault-provider -- check https://registry.terraform.io/providers/hashicorp/vault/latest/docs#vault-authentication-configuration-options
 provider "vault" {
-  address = "http://vault.common.int.ultimate.ai/"
+  address = vault_http_address
   auth_login_userpass {
     username = "your_user"
     password = data.google_secret_manager_secret_version.vault_user.secret_data
