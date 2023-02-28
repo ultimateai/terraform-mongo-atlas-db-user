@@ -1,8 +1,7 @@
-resource "mongodbatlas_database_user" "test" {
-  for_each = var.environments
-  username           = "${var.service_name}_${each.value}_test"
-  password           = random_password.password[each.key].result
-  project_id         = "61a669f144e0644f25cf662f"
+resource "mongodbatlas_database_user" "mongo_user" {
+  username           = var.user_name
+  password           = random_password.password.result
+  project_id         = var.project_id
   auth_database_name = "admin"
 
   dynamic "roles" {
@@ -16,20 +15,16 @@ resource "mongodbatlas_database_user" "test" {
 
 }
 
-resource "vault_generic_secret" "test" {
-  for_each = var.environments
-
-  path = "secret/${var.chapter}/${each.value}/${var.service_name}"
-
+resource "vault_generic_secret" "vault_secret" {
+  path = var.vault_path
   data_json = <<EOT
 {
-  "MONGO_PASSWORD": "${random_password.password[each.key].result}"
+  "MONGO_PASSWORD": "${random_password.mongo_password.result}"
 }
 EOT
 }
 
-resource "random_password" "password" {
-  for_each = var.environments
+resource "random_password" "mongo_password" {
   length = 16
   special = false
 }

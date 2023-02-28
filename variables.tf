@@ -1,4 +1,4 @@
-variable "service_name" {
+variable "user_name" {
   description = "Name of the service this user is for"
   type        = string
 }
@@ -9,13 +9,15 @@ variable "databases_names" {
 }
 
 
-variable "chapter" {
-  description = "Vault's chapter for path"
+variable "vault_path" {
+  description = "Vault's secret path"
   type        = string
 }
 
-variable "environments" {
-  description = "List of environments in which to create the secret"
-  type        = set(string)
+variable "mongo_project_id" {
+  description = "Mongo project ID"
+  type        = string
 }
+
+
 
