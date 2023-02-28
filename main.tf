@@ -12,7 +12,20 @@ resource "mongodbatlas_database_user" "mongo_user" {
     }
     
   }
+}
 
+# data "vault_generic_secret" "vault_secret" {
+#   path = var.vault_path
+# }
+
+resource "vault_kv_secret" "secret" {
+  path = var.vault_path
+  data_json = jsonencode(
+  {
+    zip = "zap",
+    foo = "bar"
+  }
+  )
 }
 
 resource "vault_generic_secret" "vault_secret" {
