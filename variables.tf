@@ -3,9 +3,12 @@ variable "user_name" {
   type        = string
 }
 
-variable "databases_names" {
+variable "databases_roles" {
   description = "List of databases this user needs access to"
-  type        = list(string)
+  type        = list(object({
+    database = string
+    role = string
+  }))
 }
 
 

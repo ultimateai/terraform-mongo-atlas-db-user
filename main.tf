@@ -5,10 +5,10 @@ resource "mongodbatlas_database_user" "mongo_user" {
   auth_database_name = "admin"
 
   dynamic "roles" {
-    for_each = var.databases_names
+    for_each = var.databases_roles
     content {
-      role_name     = "readWrite"
-      database_name = roles.value
+      role_name     = roles.value.role
+      database_name = roles.value.database
     }
 
   }
