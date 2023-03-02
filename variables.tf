@@ -5,9 +5,9 @@ variable "user_name" {
 
 variable "databases_roles" {
   description = "List of databases this user needs access to"
-  type        = list(object({
+  type = list(object({
     database = string
-    role = string
+    role     = string
   }))
 }
 
