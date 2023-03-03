@@ -1,18 +1,31 @@
-module "project-factory" {
-  source  = "terraform-google-modules/project-factory/google"
-  version = "~> 10.1"
+resource "mongodbatlas_database_user" "mongo_user" {
+  username           = var.user_name
+  password           = random_password.mongo_password.result
+  project_id         = var.mongo_project_id
+  auth_database_name = "admin"
 
-  name                 = "pf-test-1"
-  random_project_id    = true
-  org_id               = "1234567890"
-  usage_bucket_name    = "pf-test-1-usage-report-bucket"
-  usage_bucket_prefix  = "pf/test/1/integration"
-  billing_account      = "ABCDEF-ABCDEF-ABCDEF"
-  svpc_host_project_id = "shared_vpc_host_name"
+  dynamic "roles" {
+    for_each = var.databases_roles
+    content {
+      role_name     = roles.value.role
+      database_name = roles.value.database
+    }
 
-  shared_vpc_subnets = [
-    "projects/base-project-196723/regions/us-east1/subnetworks/default",
-    "projects/base-project-196723/regions/us-central1/subnetworks/default",
-    "projects/base-project-196723/regions/us-central1/subnetworks/subnet-1",
-  ]
+  }
+}
+
+
+resource "vault_generic_secret" "vault_secret" {
+  path      = "${var.vault_path}-mongo-credentials"
+  data_json = <<EOT
+{
+  "MONGO_USER": "${var.user_name}",
+  "MONGO_PASSWORD": "${random_password.mongo_password.result}"
+}
+EOT
+}
+
+resource "random_password" "mongo_password" {
+  length  = 16
+  special = false
 }

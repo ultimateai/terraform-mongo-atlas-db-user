@@ -1,23 +1,11 @@
 terraform {
-  required_version = ">= 0.15.5, <= 1.0.0"
 
   required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "~> 3.30"
+    mongodbatlas = {
+      source = "mongodb/mongodbatlas"
     }
-    null = {
-      source  = "hashicorp/null"
-      version = "~> 2.1"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 2.2"
+    vault = {
+      source = "hashicorp/vault"
     }
   }
-}
-
-provider "google-beta" {
-  project = var.project_id
-  region  = var.region
 }

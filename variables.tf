@@ -1,11 +1,26 @@
-variable "example" {
-  description = "Example variable"
+variable "user_name" {
+  description = "Name of the service this user is for"
   type        = string
-  default     = "hello world"
 }
 
-variable "ultimate_answer" {
-  description = "Ultimate Answer to Life, The Universe, and Everything"
-  type        = number
-  default     = 42
+variable "databases_roles" {
+  description = "List of databases this user needs access to"
+  type = list(object({
+    database = string
+    role     = string
+  }))
 }
+
+
+variable "vault_path" {
+  description = "Vault's secret path"
+  type        = string
+}
+
+variable "mongo_project_id" {
+  description = "Mongo project ID"
+  type        = string
+}
+
+
+
