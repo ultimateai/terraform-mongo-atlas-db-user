@@ -69,12 +69,21 @@ module "create_mongo_user_test" {
   vault_path = "secret/${var.vault_chapter}/${var.vault_environment}/${var.vault_service_name}"
   user_name = var.vault_service_name
   mongo_project_id = var.mongo_project_id
-  databases_names = ["db-first","db-second"]
+  databases_roles = [
+    {
+      "database": "db_first",
+      "role": "readWrite"
+    },
+    {
+      "database": "admin",
+      "role": "crmIntegrations"
+      }
+    ]
 }
 ```
 
 Vault_path: Were the secret will be stored. In order NOT to remove existing secrets, final path will be vault_path-mongo-credentials
 user_name: Mongo user name, which normally coincides with the service_name
 mongo_project_id = The id of the project to create the user
-databases_names = List of the databases to which the user will have ReadWrite access to
+databases_roles = List of the databases to which the user will have "role" access to
 
