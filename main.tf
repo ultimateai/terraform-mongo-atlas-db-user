@@ -7,13 +7,12 @@ resource "mongodbatlas_database_user" "mongo_user" {
   dynamic "roles" {
     for_each = var.databases_roles
     content {
-      role_name     = roles.value.role
-      database_name = roles.value.database
+      role_name       = roles.value.role
+      database_name   = roles.value.database
+      collection_name = try(roles.value.collection, null)
     }
-
   }
 }
-
 
 resource "vault_generic_secret" "vault_secret" {
   path      = "${var.vault_path}-mongo-credentials"
